@@ -61,10 +61,14 @@ viewSearchResult result =
         ]
 
 
+deleteMsg dataId msg =
+    dataId /= msg.id
+
+
 update msg model =
     if msg.operation == "DELETE_BY_ID" then
-        { model | results = List.filter (\result -> result.id /= msg.data) model.results }
-        -- { model | results = List.filter deleteMsg model.results }
+        -- { model | results = List.filter (\result -> result.id /= msg.data) model.results }
+        { model | results = List.filter (deleteMsg msg.data) model.results }
     else
         -- TODO if msg.operation == "DELETE_BY_ID",
         -- then return a new model without the given ID present anymore.
